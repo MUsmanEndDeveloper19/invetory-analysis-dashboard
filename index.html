@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0c12"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Hall Road ERP">
+<title>Hall Road ERP</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'%3E%3Cdefs%3E%3ClinearGradient id='lgx' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238b6cff'/%3E%3Cstop offset='1' stop-color='%231fb5ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='11' fill='url(%23lgx)'/%3E%3Crect x='.5' y='.5' width='39' height='39' rx='10.5' fill='none' stroke='%23fff' stroke-opacity='.28'/%3E%3Cpath d='M12.5 9.5v21M27.5 9.5v21' stroke='%23fff' stroke-width='3.6' stroke-linecap='round'/%3E%3Cpath d='M12.5 25l6-5.2 4 3 5-7' stroke='%23fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='27.5' cy='15.8' r='2.4' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f3f4fa;--pn:#fff;--p2:#f4f5fb;--ln:#e4e6f0;--tx:#14151f;--mu:#6a6f8e;--v:#7c5cff;--b:#22b8ff;--ok:#17b26a;--bad:#f04452;--wn:#f5a524;--grid:rgba(0,0,0,.06);--hero:linear-gradient(120deg,#5a3df0,#1f8fe8);--top:rgba(243,244,250,.8);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="dark"]{--bg:#0b0c12;--pn:#14151e;--p2:#1b1c27;--ln:#252736;--tx:#eef0fa;--mu:#8a8fb0;--grid:rgba(255,255,255,.06);--hero:linear-gradient(120deg,#35239a,#0e4d86);--top:rgba(11,12,18,.78);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 'DM Sans',system-ui,sans-serif}
+h1,h2,h3,.hb,.kpi b{font-family:Outfit,'DM Sans',sans-serif}
+button,select,input{font:inherit;color:inherit}
+.app{display:flex;min-height:100vh}
+.side{width:244px;background:linear-gradient(180deg,#12131c,#0c0d14);color:#a3a8c4;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:40;transition:width .25s,transform .25s;padding-top:env(safe-area-inset-top,0px);border-right:1px solid #1d1f2c}
+.brand{display:flex;align-items:center;gap:11px;padding:18px 16px 12px;color:#fff;font:600 16px Outfit,sans-serif;white-space:nowrap}
+.logo{width:36px;height:36px;display:block;flex:none;filter:drop-shadow(0 4px 14px rgba(124,92,255,.5))}.logo svg{width:100%;height:100%;display:block}
+.wm{display:flex;flex-direction:column;line-height:1.05}.wm b{font:700 17px Outfit,sans-serif;letter-spacing:-.2px}.wm small{font:600 9.5px "DM Sans",sans-serif;letter-spacing:.16em;color:#7f85a8;margin-top:3px}
+.nav{flex:1;overflow-y:auto;padding:2px 10px 14px;scrollbar-width:thin}
+.nav h6{margin:16px 10px 5px;font-size:11.5px;font-weight:600;color:#5d6280}
+.nav a{display:flex;align-items:center;gap:11px;padding:8px 11px;margin-bottom:1px;border-radius:9px;color:#a3a8c4;text-decoration:none;white-space:nowrap;font-weight:500;transition:background .18s,color .18s}
+.nav a:hover{background:#1b1d2a;color:#fff}
+.nav a.on{background:linear-gradient(90deg,rgba(124,92,255,.3),rgba(34,184,255,.1));color:#fff;box-shadow:inset 3px 0 0 var(--v)}
+.nav svg{width:17px;height:17px;flex:none}
+.collapsed .side{width:66px}.collapsed .lbl,.collapsed .nav h6{display:none}.collapsed .main{margin-left:66px}
+.main{margin-left:244px;flex:1;min-width:0;transition:margin .25s}
+.top{position:sticky;top:0;z-index:30;display:flex;gap:10px;align-items:center;padding:10px 22px;padding-top:calc(10px + env(safe-area-inset-top,0px));background:var(--top);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--ln)}
+.ico{border:1px solid var(--ln);background:var(--pn);border-radius:10px;width:38px;height:38px;display:grid;place-items:center;cursor:pointer;position:relative;flex:none;transition:border-color .2s}
+.ico:hover{border-color:var(--v)}.ico svg{width:17px;height:17px}
+.ico:focus-visible,.btn:focus-visible,.nav a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+.dot{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--bad)}
+.biz{font:600 15px Outfit,sans-serif;white-space:nowrap}.biz small{display:block;font:500 11.5px 'DM Sans';color:var(--mu)}
+.search{flex:1;max-width:360px;margin-left:10px;display:flex;align-items:center;gap:8px;background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:0 11px;height:38px}
+.search input{background:none;border:0;outline:0;flex:1;min-width:0}
+.sel{height:38px;background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:0 10px}
+.pill{font-size:12px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;background:rgba(245,165,36,.14);color:var(--wn)}.pill.ok{background:rgba(23,178,106,.15);color:var(--ok)}
+.av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--v),var(--b));color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+.sp{flex:1}
+.wrap{padding:20px 22px 96px;max-width:1500px}
+#pg>*,#dash>*{animation:up .4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;background:var(--hero);color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:14px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;width:340px;height:340px;right:-90px;top:-150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%)}
+.hl{font-size:13px;opacity:.8;font-weight:500}.hb{font-size:40px;font-weight:700;letter-spacing:-1px;line-height:1.15;margin:2px 0 4px}
+.hero p{margin:0 0 12px;opacity:.9;max-width:520px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chips span{background:rgba(255,255,255,.16);border-radius:20px;padding:5px 12px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.hq{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:center;position:relative;z-index:1}
+.hq button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:11px;padding:11px 12px;font-weight:600;cursor:pointer;text-align:left;transition:background .2s}
+.hq button:hover{background:rgba(255,255,255,.26)}
+.btn{border:1px solid var(--ln);background:var(--pn);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:600;font-size:13px;display:inline-flex;gap:7px;align-items:center;transition:border-color .2s,transform .1s}
+.btn:hover{border-color:var(--v)}.btn:active{transform:scale(.97)}
+.btn.pri{background:linear-gradient(135deg,var(--v),var(--b));border-color:transparent;color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.kpis:empty{display:none}
+.kpi{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:12px 14px}
+.kpi span{color:var(--mu);font-size:12.5px;font-weight:600}
+.kpi b{display:block;font-size:22px;font-weight:600;margin:1px 0;letter-spacing:-.4px}
+.kpi small{display:block;color:var(--mu);font-size:11.5px}
+.kpi i{font-style:normal;font-size:11.5px;font-weight:700}
+.up{color:var(--ok)}.dn{color:var(--bad)}.nt{color:var(--mu)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr);margin-bottom:12px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;min-width:0}
+.card h3{margin:0 0 10px;font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.card h3 em{font:500 12px 'DM Sans';color:var(--mu)}
+.c8{grid-column:span 8}.c4{grid-column:span 4}.c6{grid-column:span 6}
+.ch{position:relative;height:250px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--mu);font-weight:600;font-size:12px;padding:7px 9px;border-bottom:1px solid var(--ln);white-space:nowrap;user-select:none}
+td{padding:9px;border-bottom:1px solid var(--ln);white-space:nowrap}
+tbody tr:hover td{background:var(--p2)}tr:last-child td{border-bottom:0}
+.r{text-align:right}
+.tag{padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:700}
+.t-ok{background:rgba(23,178,106,.15);color:var(--ok)}.t-w{background:rgba(245,165,36,.16);color:var(--wn)}.t-b{background:rgba(240,68,82,.15);color:var(--bad)}
+.help{background:rgba(34,184,255,.09);border:1px solid rgba(34,184,255,.3);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:13.5px}
+.pt{margin:0 0 10px;font-size:22px;font-weight:600;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.grow{flex:1;min-width:160px;padding:0 12px}
+.x{border:0;background:none;color:var(--mu);cursor:pointer;font-size:15px}.x:hover{color:var(--bad)}
+.md{display:none;position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:70;align-items:center;justify-content:center;padding:16px}.md.on{display:flex}
+.mb{background:var(--pn);border:1px solid var(--ln);border-radius:16px;padding:20px;width:min(450px,100%);max-height:90vh;overflow:auto;animation:up .25s both}
+.mb h3{margin:0 0 12px}.mb label{display:block;font-weight:600;font-size:12.5px;margin-bottom:10px}
+.mb input,.mb select,.ta{display:block;width:100%;margin-top:4px;height:42px;background:var(--p2);border:1px solid var(--ln);border-radius:9px;padding:0 10px}
+.ta{height:auto;padding:8px;font:12px monospace}
+.mbt{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.fab{display:none}
+.dot{width:auto;height:16px;min-width:16px;padding:0 4px;top:3px;right:3px;border-radius:8px;color:#fff;font:700 10px/16px 'DM Sans',sans-serif;text-align:center}.dot[hidden]{display:none}
+.search input{cursor:pointer}.search kbd,.cpf kbd{font:600 10.5px 'DM Sans';border:1px solid var(--ln);border-radius:5px;padding:1px 6px;color:var(--mu);background:var(--p2)}
+.sm-only{display:none}
+.search{flex:1 1 140px;min-width:110px}.biz,.top .btn,.top .ico,.top .av,.top .pill,.top .sel{flex:none;white-space:nowrap}.biz{max-width:42vw;overflow:hidden;text-overflow:ellipsis}
+html{-webkit-text-size-adjust:100%}body{-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}.wrap{margin-inline:auto}
+.sbtn{margin:2px 12px 6px;display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #252736;background:#161824;color:#8a8fb0;border-radius:10px;cursor:pointer;font-weight:500;white-space:nowrap}.sbtn:hover{color:#fff;border-color:var(--v)}.collapsed .sbtn{display:none}
+.tabs{display:none}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.sgb{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;border:1px solid var(--ln);background:var(--p2);border-radius:14px;cursor:pointer;font-weight:600;text-align:center}.sgb:active{transform:scale(.97)}.sgb i{font-style:normal;font-size:28px}
+@keyframes sheet{from{transform:translateY(100%)}to{transform:none}}
+.cp{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:80;align-items:flex-start;justify-content:center;padding:12vh 14px 0;backdrop-filter:blur(3px)}.cp.on{display:flex}
+.cpb{width:min(580px,100%);background:var(--pn);border:1px solid var(--ln);border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:up .2s both}
+.cpb input{width:100%;height:54px;border:0;border-bottom:1px solid var(--ln);background:none;padding:0 18px;font-size:15px;outline:0}
+.cpl{max-height:50vh;overflow:auto;padding:6px}.cpl button{display:flex;justify-content:space-between;gap:10px;width:100%;padding:11px 12px;border:0;background:none;border-radius:9px;cursor:pointer;text-align:left;font-weight:500}
+.cpl button.on{background:linear-gradient(90deg,rgba(124,92,255,.22),rgba(34,184,255,.08))}.cpl small{color:var(--mu)}
+.cpf{padding:8px 14px;font-size:11.5px;color:var(--mu);border-top:1px solid var(--ln);display:flex;gap:12px;flex-wrap:wrap}
+#inv table td{padding:7px 0}
+@media print{body *{visibility:hidden}#inv,#inv *{visibility:visible;color:#000!important}#inv{position:fixed;left:0;top:0;width:100%;padding:28px;background:#fff}}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:11px;opacity:0;pointer-events:none;transition:.25s;z-index:90;max-width:90vw;font-weight:600}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.scrim{display:none}
+@media(max-width:1100px){.c8,.c4,.c6{grid-column:span 12}.kpis{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}}
+@media(max-width:860px){
+.sm-only{display:grid}.mlogo{display:none!important}.hq,.fab{display:none!important}.collapsed .sbtn{display:flex}
+.top{gap:8px}.biz{font-size:14.5px}.sel{height:36px;font-size:13px;padding:0 6px}.ico{width:36px;height:36px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);align-items:end;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--top);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--ln);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabs a,.tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;color:var(--mu);font:600 10.5px 'DM Sans',sans-serif;text-decoration:none;min-height:48px;cursor:pointer}
+.tabs svg{width:22px;height:22px}.tabs a.on{color:var(--v)}
+.tabs .plus{justify-self:center;width:54px;height:54px;min-height:0;margin-top:-26px;border-radius:50%;background:linear-gradient(135deg,var(--v),var(--b));color:#fff;font-size:32px;font-weight:400;box-shadow:0 8px 22px rgba(124,92,255,.5);border:3px solid var(--bg)}
+.toast{bottom:92px}
+.md{align-items:flex-end;padding:0}.mb{width:100%;max-width:none;border-radius:22px 22px 0 0;max-height:88vh;padding:18px 18px calc(20px + env(safe-area-inset-bottom,0px));animation:sheet .28s cubic-bezier(.2,.8,.2,1) both}
+.mb::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:var(--ln);margin:0 auto 14px}
+input,select{font-size:16px}.mb input,.mb select{height:46px}.mbt .btn{flex:1;justify-content:center;padding:13px}
+.cp{padding-top:8vh}.cpf{display:none}.cpl button{padding:14px 12px}
+.pt{font-size:19px}.help{font-size:13px;padding:9px 12px}.hero{padding:18px}.hero p{margin-bottom:10px}
+.bar .pri{flex:1 1 100%;justify-content:center;padding:13px}.bar .btn,.bar .sel{min-height:44px}
+.kpi{padding:12px}.card{padding:12px}
+#ptb,#ptb tbody{display:block}#ptb tr:first-child{display:none}
+#ptb tr{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;padding:13px;border:1px solid var(--ln);border-radius:14px;margin-bottom:10px;background:var(--p2)}
+#ptb td{display:block;border:0;padding:0;white-space:normal;text-align:left!important;font-weight:600}#ptb td::before{content:attr(data-l);display:block;font-size:11px;color:var(--mu);font-weight:500}
+#ptb td:first-child{grid-column:1/-1;font-size:15px}#ptb td:last-child:not([data-l]){grid-column:1/-1;text-align:right!important}#ptb td:last-child:not([data-l])::before{content:none}
+#ptb tbody tr:hover td{background:none}
+}
+@media(max-width:380px){.top{gap:6px;padding-left:8px;padding-right:8px}.biz{font-size:12.5px;max-width:30vw}.sel{max-width:70px;padding:0 4px}.ico{width:34px;height:34px}}
+@media(min-width:861px) and (max-width:1100px){.top .search{max-width:220px}.top .pill,.top .search kbd{display:none}}
+@media(min-width:1700px){body{font-size:15px}.wrap{padding:28px 36px 96px}}
+@media(max-width:860px){
+.side{transform:translateX(-100%);width:256px}.open .side{transform:none}
+.open .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:35}
+.main,.collapsed .main{margin-left:0}.collapsed .side{width:256px}.collapsed .lbl{display:inline}.collapsed .nav h6{display:block}
+.top{padding-left:12px;padding-right:12px}.search,.biz small,.hide-m{display:none}
+.wrap{padding:12px 12px 96px}.hb{font-size:32px}.kpi b{font-size:18px}.ch{height:215px}
+.hq button{min-height:46px}
+.fab{display:grid;position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--v),var(--b));color:#fff;font-size:30px;place-items:center;z-index:50;cursor:pointer;box-shadow:0 8px 24px rgba(124,92,255,.5)}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<aside class="side"><div class="brand"><div class="logo"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="lgx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b6cff"/><stop offset="1" stop-color="#1fb5ff"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#lgx)"/><rect x=".5" y=".5" width="39" height="39" rx="10.5" fill="none" stroke="#fff" stroke-opacity=".28"/><path d="M12.5 9.5v21M27.5 9.5v21" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M12.5 25l6-5.2 4 3 5-7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27.5" cy="15.8" r="2.4" fill="#fff"/></svg></div><span class="lbl wm"><b>Hall Road</b><small>ERP · WHOLESALE</small></span></div><button class="sbtn" id="sbtn2">🔍 Page / kaam dhoondein</button><nav class="nav" id="nav"></nav></aside>
+<div class="scrim" id="scrim"></div>
+<div class="main">
+<header class="top">
+ <button class="ico" id="burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+ <span class="logo sm-only mlogo"></span><div class="biz">Al-Noor Traders<small>Hall Road, Lahore</small></div>
+ <label class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="gs" readonly placeholder="Page ya kaam dhoondein…"><kbd class="hide-m">Ctrl K</kbd></label>
+ <span class="sp"></span>
+ <button class="btn pri hide-m" id="nbtn">＋ Naya</button>
+ <span class="pill hide-m" id="pill">● Connecting…</span>
+ <select class="sel" id="range" aria-label="Date range"><option value="30">30 din</option><option value="90">3 mahine</option><option value="180">6 mahine</option><option value="365">12 mahine</option></select>
+ <button class="ico" id="bell" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg><span class="dot" id="bcnt" hidden></span></button>
+ <button class="ico" id="theme" aria-label="Theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg></button>
+ <div class="av hide-m">AN</div>
+</header>
+<main class="wrap"><div id="pg"></div><div id="dash">
+<section class="hero"><div><div class="hl">Aaj ka haal: asal bachat (Net Profit)</div><div class="hb" id="hb">Rs. 0</div><p id="hs"></p><div class="chips" id="chips"></div></div><div class="hq" id="qa"></div></section>
+<section class="kpis" id="kpis"></section>
+<section class="grid"><div class="card c8"><h3>Sale aur munafa <em>pichlay 12 mahine</em></h3><div class="ch"><canvas id="c1"></canvas></div></div><div class="card c4"><h3>Kharche kahan gaye <em id="ebl"></em></h3><div class="ch"><canvas id="c2"></canvas></div></div></section>
+<section class="grid"><div class="card c6"><h3>Haftawar sale <em>pichlay 10 hafte</em></h3><div class="ch"><canvas id="c3"></canvas></div></div><div class="card c6"><h3>Godown ka maal <em>category ke hisab se, lagat par</em></h3><div class="ch"><canvas id="c4"></canvas></div></div></section>
+<section class="grid"><div class="card c6"><h3>Aakhri sales</h3><div class="tw"><table id="t1"></table></div></div><div class="card c6"><h3>Kam stock <em>jaldi mangwayein</em></h3><div class="tw"><table id="t2"></table></div></div><div class="card c6"><h3>Sab se bara baqaya <em>shopkeepers se lene hain</em></h3><div class="tw"><table id="t3"></table></div></div><div class="card c6"><h3>Aakhri purchases</h3><div class="tw"><table id="t4"></table></div></div></section>
+</div></main>
+</div></div>
+<button class="fab" id="fab" aria-label="New sale">+</button>
+<nav class="tabs" id="tabs"><a href="#dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 11h8v10h-8zM3 14h8v7H3z"/></svg><span>Home</span></a><a href="#wholesale-sales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M5 7v13h14V7M9 11h6M8 3h8l1 4H7z"/></svg><span>Sale</span></a><button class="plus" id="plus" aria-label="Naya kaam">+</button><a href="#products-categories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></svg><span>Maal</span></a><button id="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menu</span></button></nav><div class="toast" id="toast"></div><div class="cp" id="cp"><div class="cpb"><input id="cpi" placeholder="Kuch bhi likhein: page ya kaam (jaise sale, stock, kharcha)…" autocomplete="off"><div class="cpl" id="cpl"></div><div class="cpf"><span><kbd>↑</kbd> <kbd>↓</kbd> chunein</span><span><kbd>Enter</kbd> kholein</span><span><kbd>Esc</kbd> band</span></div></div></div><div class="md" id="md"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const PKR=n=>'Rs. '+Math.round(n).toLocaleString('en-PK'),SUM=a=>a.reduce((x,y)=>x+y,0),sc=(r,i)=>SUM(r.map(x=>+x[i]||0));
+const sh=n=>Math.abs(n)>=1e6?(n/1e6).toFixed(1)+'M':Math.abs(n)>=1e3?Math.round(n/1e3)+'K':Math.round(n);
+const day=n=>{const d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10)},T=day(0);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600)};
+const I={d:'M3 3h8v8H3zM13 3h8v5h-8zM13 11h8v10h-8zM3 14h8v7H3z',p:'M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8',s:'M3 7h18M5 7v13h14V7M9 11h6M8 3h8l1 4H7z',c:'M12 3v18M17 7H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6',u:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.9',r:'M4 4h16v16H4zM8 16v-5M12 16V8M16 16v-3',g:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.4 1a7 7 0 0 0-1.7-1L14.5 3h-5l-.3 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.5L5 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7 7 0 0 0 1.7 1l.3 3h5l.3-3a7 7 0 0 0 1.7-1l2.4 1 2-3.5-2-1.5a7 7 0 0 0 .1-1'};
+const slug=n=>n==='Settings'?'app-settings':n.toLowerCase().replace(/&/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const NAV=[['Overview',[['Dashboard','d']]],['Stock & buying',[['Products & Categories','p'],['Inventory','p'],['Purchases','s'],['Suppliers','u'],['Purchase Returns','s']]],['Selling',[['Wholesale Sales','s'],['Shopkeepers','u'],['Sales Returns','s']]],['Money',[['Expenses','c'],['Rent','c'],['Employees','u'],['Salary & Payroll','c'],['Cash & Bank','c'],['Profit & Loss','r'],['Receivables','c'],['Payables','c']]],['Insights',[['Reports','r'],['Business Intelligence','r'],['Notifications','r']]],['Admin',[['Users & Permissions','u'],['Settings','g'],['Backup & Restore','g'],['Audit Logs','g']]]];
+$('#nav').innerHTML=NAV.map(([h,l])=>`<h6>${h}</h6>`+l.map(([n,i])=>`<a href="#${slug(n)}" data-n="${n}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${I[i]}"/></svg><span class="lbl">${n}</span></a>`).join('')).join('');
+const app=$('#app'),root=document.documentElement;
+$('#nav').onclick=e=>{if(e.target.closest('a'))app.classList.remove('open')};
+$('#burger').onclick=()=>{innerWidth<=860?app.classList.toggle('open'):app.classList.toggle('collapsed')};
+$('#scrim').onclick=()=>app.classList.remove('open');
+function setTheme(t,save){root.dataset.theme=t;if(save)try{localStorage.setItem('hr-theme',t)}catch(e){};if($('#dash').style.display!=='none')render()}
+$('#theme').onclick=()=>setTheme(root.dataset.theme==='dark'?'light':'dark',1);
+try{const s=localStorage.getItem('hr-theme');if(s)root.dataset.theme=s}catch(e){}
+
+/* ---------- DEMO DATA (generated; real data is saved in the database once you add or change anything) ---------- */
+let sd=7;const rnd=()=>(sd=(sd*9301+49297)%233280)/233280;
+const SH=['Rana Mobile Mart','City Telecom','Gulberg Gadgets','Pak Cellular','Zubair Electronics'],SU=['Shenzhen Link Co.','Hafeez Imports','Karachi Cargo Traders','Star Accessories'];
+const stt=(t,p)=>p>=t?'Paid':p>0?'Partial':'Unpaid';
+const SAL=Array.from({length:72},(_,i)=>{const t=Math.round((55+rnd()*160)*(1.5-i/150))*1000,pd=i%9===0?0:i%5===0?Math.round(t/2000)*1000:t;return['INV-'+(1100-i),SH[i%5],day(i*5),t,pd,stt(t,pd),Math.round(t*(.74+rnd()*.07))]});
+const PUR=Array.from({length:18},(_,i)=>{const t=Math.round(150+rnd()*450)*1000,pd=i%5===0?0:i%3===0?Math.round(t/2000)*1000:t;return['PO-'+(330-i),SU[i%4],day(i*20),t,pd,stt(t,pd)]});
+const EXP=Array.from({length:40},(_,i)=>{const c=['Electricity','Transport','Marketing','Other'][i%4];return[c==='Electricity'?'Bijli ka bill':c==='Transport'?'Delivery aur loading':c==='Marketing'?'Facebook ads':'Chhotay kharche',c,Math.round((8+rnd()*22)*1000),day(i*9+2),['Bank','Cash','JazzCash'][i%3]]});
+const RENT=Array.from({length:24},(_,i)=>[i%2?'Warehouse':'Shop','Month '+(Math.floor(i/2)+1),i%2?65000:120000,day(Math.floor(i/2)*30+6),i<2?'Due':'Paid']);
+const EMP=[['Ali Raza','Manager','0333-0000001',70000,'2023-03-01'],['Hamza','Salesperson','0333-0000002',45000,'2024-01-15'],['Kashif','Godown Incharge','0333-0000003',40000,'2024-06-01'],['Saad','Accountant','0333-0000004',55000,'2025-02-01']];
+const PAY=Array.from({length:48},(_,i)=>{const e=EMP[i%4],m=Math.floor(i/4),b=e[3],bo=m%3===0?3000:0,dd=i%7===0?2000:0;return[e[0],day(m*30+8),b,bo,dd,m===0?'Unpaid':'Paid',b+bo-dd]});
+const PR=[['Wireless Earbuds A','Mobile',850,1100,320],['Neckband BT-5','Mobile',700,950,12],['Tempered Glass 50pk','Mobile',1750,2400,150],['20W Type-C Charger','Charger',560,780,610],['Power Bank 10000mAh','Charger',1900,2500,18],['Type-C Cable 1m','Cable',170,260,900],['Lightning Cable','Cable',190,290,22],['Wireless Mouse','Computer',620,850,9],['Keyboard RGB','Gaming',1500,2100,64],['Ring Light 10"','Studio',1380,1900,95],['CCTV Camera 2MP','CCTV',3200,4300,40],['Car Charger','Car',320,480,210]];
+const LOWN=25;
+
+/* ---------- DATABASE LAYER ---------- */
+let db=null,DL=null,curDraw=null,pendAdd=false,addFn=null;const C={};
+const rowsOf=id=>{const p=P[id];return typeof p.r==='function'?p.r():(C[id]=C[id]||p.r.map(x=>x.slice()))};
+const sched=()=>{clearTimeout(sched.t);sched.t=setTimeout(()=>{curDraw&&curDraw();updBell()},60)};
+function save(id,rows){C[id]=rows;sched();if(db)db.doc('tables/'+id).set({rows}).catch(()=>toast('Save nahi hua: sirf owner ya editor save kar sakta hai'))}
+function log(a,d){const r=rowsOf('audit-logs').slice(0,99);r.unshift([new Date().toISOString().slice(0,16).replace('T',' '),'Aap',a,d]);save('audit-logs',r)}
+const pill=(t,ok)=>{$('#pill').textContent=t;$('#pill').className='pill hide-m'+(ok?' ok':'')};
+async function initDb(){if(!window.claude)return pill('● Local demo');
+ try{db=await claude.use('db');DL=await claude.use('downloads')}catch(e){}
+ if(!db)return pill('● Local demo');
+ pill('● Database connected',1);
+ Object.keys(P).forEach(id=>{if(Array.isArray(P[id].r))db.doc('tables/'+id).onSnapshot(s=>{if(s.exists&&s.data().rows){C[id]=s.data().rows;sched()}},()=>pill('● Database error'))})}
+
+/* ---------- FINANCE (all computed from saved tables) ---------- */
+const inR=(d,n,o)=>{const a=(Date.now()-new Date(d))/864e5;return a>=o*n&&a<(o+1)*n};
+function fin(n,o=0){const s=rowsOf('wholesale-sales').filter(x=>inR(x[2],n,o)),rev=sc(s,3),cg=sc(s,6),ex=rowsOf('expenses').filter(x=>inR(x[3],n,o)),e=sc(ex,2),r=sc(rowsOf('rent').filter(x=>inR(x[3],n,o)),2),p=sc(rowsOf('salary-payroll').filter(x=>inR(x[1],n,o)),6);return{rev,cg,gp:rev-cg,e,r,p,ox:e+r+p,np:rev-cg-e-r-p,ex}}
+const KEYS=Array.from({length:12},(_,i)=>{const d=new Date();d.setDate(15);d.setMonth(d.getMonth()-(11-i));return d.toISOString().slice(0,7)});
+function mon(k){const f=(id,di)=>rowsOf(id).filter(x=>String(x[di]).slice(0,7)===k),s=f('wholesale-sales',2),rv=sc(s,3),o=sc(f('expenses',3),2)+sc(f('rent',3),2)+sc(f('salary-payroll',1),6);return[rv,rv-sc(s,6)-o]}
+const recv=()=>rowsOf('wholesale-sales').filter(x=>x[3]>x[4]).map(x=>[x[1],x[0],x[3]-x[4],x[2],(Date.now()-new Date(x[2]))/864e5>20?'Overdue':'Pending']);
+const payb=()=>rowsOf('purchases').filter(x=>x[3]>x[4]).map(x=>[x[1],x[0],x[3]-x[4],x[2],(Date.now()-new Date(x[2]))/864e5>30?'Overdue':'Pending']);
+const cashBal=()=>{const r=rowsOf('cash-bank');return sc(r.filter(x=>x[1]==='Money In'),2)-sc(r.filter(x=>x[1]==='Money Out'),2)};
+
+/* ---------- PAGE DEFINITIONS: f = form fields ($ money, # number, @ date, a:b,c dropdown, a:* list from another page) ---------- */
+const mk=s=>{const[a,b]=s.split(':'),m=a.slice(-1),k='$#@'.includes(m)?m:'';return{k,n:k?a.slice(0,-1):a,o:b&&b.split(',')}};
+const LK={Shopkeeper:'shopkeepers',Supplier:'suppliers',Product:'products-categories',Employee:'employees'};
+const OK=['Paid','Received','Active','Money In'],WN=['Partial','Pending','Due','Transfer','Money Out'],BD=['Unpaid','Overdue','Disabled'];
+const cell=(v,k)=>k==='$'?PKR(v):k==='#'?(+v).toLocaleString('en-PK'):OK.includes(v)?`<span class="tag t-ok">${v}</span>`:WN.includes(v)?`<span class="tag t-w">${v}</span>`:BD.includes(v)?`<span class="tag t-b">${v}</span>`:v;
+const money3=r=>[['Kul raqam',PKR(sc(r,3))],['Ada ho gaya',PKR(sc(r,4))],['Baqaya',PKR(sc(r,3)-sc(r,4))]];
+const P={
+'products-categories':{t:'Products & Categories',h:'Aap ka saara maal: naam, category, khareed rate, bechne ka rate aur stock. Stock khud kam ya zyada hota hai jab aap Inventory mein entry karte hain.',a:'Add Product',f:['Product','Category:Mobile,Charger,Cable,Computer,Gaming,CCTV,Studio,Car','Cost Price$','Sale Price$','Stock#'],r:PR,s:r=>[['Products',r.length],['Kul pieces',sc(r,4).toLocaleString('en-PK')],['Stock ki lagat',PKR(r.reduce((a,x)=>a+x[2]*x[4],0))],['Kam stock',r.filter(x=>x[4]<=LOWN).length+' items']]},
+'inventory':{t:'Inventory (Godown ka stock)',h:'Maal kab aaya, bika ya kharab hua yahan likhein. Entry save karte hi Products ka stock khud update ho jata hai.',a:'Stock Adjustment',f:['Product:*','Type:Purchase Received,Sold,Damaged,Customer Return,Adjustment','Qty#','Date@','Note'],after:v=>{const rows=rowsOf('products-categories').map(x=>x.slice()),r=rows.find(x=>x[0]===v[0]);if(r){r[4]=Math.max(0,r[4]+(['Sold','Damaged'].includes(v[1])?-v[2]:v[2]));save('products-categories',rows)}},r:[['20W Type-C Charger','Purchase Received',200,day(5),'PO-330'],['Type-C Cable 1m','Damaged',12,day(3),'Toota hua'],['Neckband BT-5','Sold',30,day(1),'INV-1100']],s:r=>[['Movements',r.length],['Stock ki lagat',PKR(rowsOf('products-categories').reduce((a,x)=>a+x[2]*x[4],0))],['Kam stock',rowsOf('products-categories').filter(x=>x[4]<=LOWN).length+' items']]},
+'purchases':{t:'Purchases (Maal ki khareed)',h:'Supplier se maal khareedne ki invoice. Ada kiya hua aur baqaya khud nikalta hai. Baqaya Payables mein nazar aata hai.',a:'New Purchase',f:['Invoice','Supplier:*','Date@','Total$','Paid$'],x:v=>[stt(v[3],v[4])],c:['Invoice','Supplier','Date@','Total$','Paid$','Status'],ck:v=>v[4]>v[3]&&'Ada shuda raqam total se zyada hai',r:PUR,s:money3},
+'suppliers':{t:'Suppliers',h:'Jin se aap maal khareedte hain unki list.',a:'Add Supplier',f:['Supplier','Contact','Phone'],r:SU.map((x,i)=>[x,['Mr. Li','Hafeez','Imran','Adeel'][i],'0300-000000'+(i+1)]),s:r=>[['Suppliers',r.length]]},
+'purchase-returns':{t:'Purchase Returns',h:'Supplier ko kharab maal wapis bheja to yahan likhein.',a:'New Purchase Return',f:['Return No','Supplier:*','Product:*','Qty#','Amount$','Date@'],r:[['PR-04','Hafeez Imports','Type-C Cable 1m',40,6800,day(6)],['PR-03','Star Accessories','Wireless Mouse',5,3500,day(20)]],s:r=>[['Returns',r.length],['Wapsi ki raqam',PKR(sc(r,4))]]},
+'wholesale-sales':{pr:1,t:'Wholesale Sales (Shopkeeper ko sale)',h:'Shopkeeper ko bill banayein. Status khud banta hai (Paid, Partial ya Unpaid). Lagat likhne se Gross Profit sahi nikalta hai.',a:'New Sale',f:['Invoice','Shopkeeper:*','Date@','Total$','Paid$','Maal ki lagat$'],row:v=>[v[0],v[1],v[2],v[3],v[4],stt(v[3],v[4]),v[5]],c:['Invoice','Shopkeeper','Date@','Total$','Paid$','Status','Lagat$'],ck:v=>v[4]>v[3]?'Mile hue paise total se zyada hain':v[5]>v[3]*1.5&&'Lagat bohat zyada lag rahi hai, dobara check karein',r:SAL,s:r=>[['Kul sale',PKR(sc(r,3))],['Paise mil gaye',PKR(sc(r,4))],['Baqaya',PKR(sc(r,3)-sc(r,4))],['Invoices',r.length]]},
+'shopkeepers':{t:'Shopkeepers (Customers)',h:'Aap ke khareedar dukandaron ki list. Un ka baqaya Receivables page par dekhein.',a:'Add Shopkeeper',f:['Shop','Owner','Phone','Credit Limit$'],r:SH.map((x,i)=>[x,['Rana Sb','Farhan','Bilal','Usman','Zubair'][i],'0321-000000'+(i+1),[500000,200000,300000,700000,200000][i]]),s:r=>[['Shopkeepers',r.length],['Kul credit limit',PKR(sc(r,3))]]},
+'sales-returns':{t:'Sales Returns',h:'Shopkeeper ne maal wapis kiya to yahan likhein.',a:'New Sales Return',f:['Return No','Shopkeeper:*','Product:*','Qty#','Amount$','Date@'],r:[['SR-07','City Telecom','Tempered Glass 50pk',10,4200,day(4)],['SR-06','Pak Cellular','Neckband BT-5',3,2850,day(10)]],s:r=>[['Returns',r.length],['Wapsi ki raqam',PKR(sc(r,4))]]},
+'expenses':{t:'Expenses (Kharche)',h:'Dukaan chalane ke kharche (bijli, transport, ads). Kiraya aur salary apne pages par likhein, yahan nahi, warna do dafa ginay jayenge.',a:'Add Expense',f:['Title','Category:Electricity,Transport,Marketing,Packaging,Other','Amount$','Date@','Paid By:Cash,Bank,JazzCash,Easypaisa'],r:EXP,s:r=>[['Records',r.length],['Kul kharcha',PKR(sc(r,2))],['Is mahine',PKR(sc(r.filter(x=>inR(x[3],30,0)),2))]]},
+'rent':{t:'Rent (Kiraya)',h:'Dukaan aur godown ka kiraya.',a:'Add Rent Entry',f:['Property:Shop,Warehouse','Month','Rent$','Due Date@','Status:Paid,Due'],r:RENT,s:r=>[['Ada shuda',PKR(sc(r.filter(x=>x[4]==='Paid'),2))],['Baqaya kiraya',PKR(sc(r.filter(x=>x[4]==='Due'),2))]]},
+'employees':{t:'Employees (Staff)',h:'Staff ki list aur mahana tankhwah.',a:'Add Employee',f:['Name','Role','Phone','Salary$','Joined@'],r:EMP,s:r=>[['Staff',r.length],['Mahana tankhwah',PKR(sc(r,3))]]},
+'salary-payroll':{t:'Salary & Payroll',h:'Net Pay khud banta hai: Basic + Bonus - Katoti.',a:'Make Salary Entry',f:['Employee:*','Pay Date@','Basic$','Bonus$','Deduction$','Status:Paid,Unpaid'],xc:['Net Pay$'],x:v=>[v[2]+v[3]-v[4]],r:PAY,s:r=>[['Kul Net Pay',PKR(sc(r,6))],['Baqaya salary',PKR(sc(r.filter(x=>x[5]==='Unpaid'),6))]]},
+'cash-bank':{t:'Cash & Bank',h:'Cash, bank, JazzCash aur Easypaisa mein paisa kitna aaya aur gaya. Transfer income ya kharcha nahi ginaa jata.',a:'Add Money Entry',f:['Account:Cash,Bank,JazzCash,Easypaisa','Type:Money In,Money Out,Transfer','Amount$','Date@','Note'],r:[['Bank','Money In',3000000,day(200),'Opening balance'],['Cash','Money In',182500,day(2),'INV-1100'],['Bank','Money Out',400000,day(6),'PO-330'],['Cash','Transfer',100000,day(4),'Cash se Bank'],['JazzCash','Money In',40000,day(3),'INV-1098']],s:r=>[['Paisa aaya',PKR(sc(r.filter(x=>x[1]==='Money In'),2))],['Paisa gaya',PKR(sc(r.filter(x=>x[1]==='Money Out'),2))],['Balance',PKR(cashBal())]]},
+'profit-loss':{t:'Profit & Loss (Munafa / Nuqsan)',h:'Pichlay 12 mahine ka hisab: sale minus maal ki lagat minus kharche. Jo maal bika nahi woh munafe mein nahi ginaa jata.',c:['Item','Raqam$','Matlab'],r:()=>{const f=fin(365);return[['Total Sale',f.rev,'Aap ne kitni sale ki'],['Maal ki lagat',f.cg,'Jo maal bika uski khareed lagat'],['Gross Profit',f.gp,'Sale minus maal ki lagat'],['Kharche',f.e,'Bijli, transport, ads'],['Kiraya',f.r,'Shop aur godown'],['Salaries',f.p,'Staff ki tankhwah'],['Net Profit',f.np,'Asal bachat']]}},
+'receivables':{t:'Receivables (Humein lene hain)',h:'Shopkeepers ke baqaya paise, sales se khud bante hain. Paise milay to "Receive Payment" dabayein, sale ka hisab khud theek ho jata hai.',a:'Receive Payment',pay:'wholesale-sales',c:['Shopkeeper','Invoice','Baqaya$','Date@','Status'],r:recv,s:r=>[['Kul lene hain',PKR(sc(r,2))],['Overdue',PKR(sc(r.filter(x=>x[4]==='Overdue'),2))]]},
+'payables':{t:'Payables (Humein dene hain)',h:'Suppliers ko dene wale paise, purchases se khud bante hain. Ada karne par "Pay Supplier" dabayein.',a:'Pay Supplier',pay:'purchases',c:['Supplier','Invoice','Baqaya$','Date@','Status'],r:payb,s:r=>[['Kul dene hain',PKR(sc(r,2))],['Overdue',PKR(sc(r.filter(x=>x[4]==='Overdue'),2))]]},
+'reports':{t:'Reports',h:'Har report ki CSV file download karein (Excel mein khulti hai).',dl:1,c:['Report','Kya dikhati hai','File'],r:[['Sales Report','Kis shopkeeper ko kitni sale','wholesale-sales'],['Purchase Report','Suppliers se kya khareeda','purchases'],['Stock Report','Godown mein kya kitna hai','products-categories'],['Expense Report','Kharche ki list','expenses'],['Salary Report','Staff ki salary','salary-payroll'],['Rent Report','Kiraye ka hisab','rent'],['Cash Report','Paisa aaya gaya','cash-bank'],['Profit & Loss','Munafa ya nuqsan','profit-loss'],['Receivables','Shopkeepers se lene hain','receivables'],['Payables','Suppliers ko dene hain','payables']]},
+'business-intelligence':{t:'Business Intelligence (Business ki samajh)',h:'Aam sawalon ke jawab, aap ke saved data se khud nikalay gaye.',c:['Sawal','Jawab'],r:()=>{const g={};rowsOf('wholesale-sales').forEach(x=>g[x[1]]=(g[x[1]]||0)+x[3]);const best=Object.entries(g).sort((a,b)=>b[1]-a[1])[0],pr=rowsOf('products-categories'),cat={};pr.forEach(x=>cat[x[1]]=(cat[x[1]]||0)+x[2]*x[4]);const bc=Object.entries(cat).sort((a,b)=>b[1]-a[1])[0],f=fin(365),ec={};f.ex.forEach(x=>ec[x[1]]=(ec[x[1]]||0)+x[2]);const be=Object.entries(ec).sort((a,b)=>b[1]-a[1])[0],rc=recv().sort((a,b)=>b[2]-a[2])[0];return[['Sab se zyada sale kis shopkeeper ko?',best?best[0]+' ('+PKR(best[1])+')':'-'],['Gross margin kitna hai?',f.rev?(f.gp/f.rev*100).toFixed(1)+'%':'-'],['Godown ka sab se zyada paisa kahan phansa?',bc?bc[0]+' ('+PKR(bc[1])+')':'-'],['Kin items ka stock mangwana hai?',pr.filter(x=>x[4]<=LOWN).map(x=>x[0]).join(', ')||'Sab theek hai'],['Sab se bara kharcha kaun sa?',be?be[0]+' ('+PKR(be[1])+')':'-'],['Sab se bara baqaya kis ka?',rc?rc[0]+' ('+PKR(rc[2])+')':'Koi nahi']]}},
+'notifications':{t:'Notifications (Yaad-dehani)',h:'Zaroori cheezein jo ab aap ki tawajjo chahti hain. Yeh khud data se banti hain.',c:['Qism','Paigham'],r:()=>[...rowsOf('products-categories').filter(x=>x[4]<=LOWN).map(x=>['Low Stock',x[0]+': sirf '+x[4]+' bache hain']),...recv().filter(x=>x[4]==='Overdue').slice(0,6).map(x=>['Payment Due',x[0]+' ka '+x[1]+' overdue hai ('+PKR(x[2])+')']),...payb().filter(x=>x[4]==='Overdue').slice(0,4).map(x=>['Supplier Due',x[0]+' ko '+PKR(x[2])+' dene hain']),...rowsOf('rent').filter(x=>x[4]==='Due').map(x=>['Rent Due',x[0]+' ka kiraya '+PKR(x[2])+' baqaya hai'])]},
+'users-permissions':{t:'Users & Permissions',h:'Kaun software mein kya dekh sakta hai. Salesperson khareed ki qeemat aur munafa nahi dekh sakta.',a:'Add User',f:['Name','Role:Owner,Manager,Accountant,Salesperson,Inventory Staff','Phone','Status:Active,Disabled'],r:[['Al-Noor (Owner)','Owner','0300-1111111','Active'],['Ali Raza','Manager','0333-0000001','Active'],['Hamza','Salesperson','0333-0000002','Active'],['Kashif','Inventory Staff','0333-0000003','Active']]},
+'app-settings':{t:'Settings',h:'Business ki buniyadi settings. Theme badalne ke liye upar chaand wala button dabayein.',c:['Setting','Value','Matlab'],r:[['Business name','Al-Noor Traders','Invoice par yeh naam chhapta hai'],['Currency','PKR (Rs.)','Sab raqam rupay mein'],['Costing method','Weighted Average','Maal ki lagat nikalne ka tareeqa'],['Low stock alert','Stock '+LOWN+' ya kam','Is par notification aati hai']]},
+'backup-restore':{t:'Backup & Restore',h:'Apne data ki copy file mein download karein. Neeche se demo data wapis bhi la sakte hain (is se aap ka naya data mit jayega).',a:'Take Backup Now',f:['Backup Name'],xc:['Waqt'],x:()=>[new Date().toISOString().slice(0,16).replace('T',' ')],after:()=>backup(),ex:[['Download backup file','bk'],['Reset demo data','rs']],r:[['Daily backup','2026-11-07 02:00'],['Weekly backup','2026-11-01 02:00']]},
+'audit-logs':{t:'Audit Logs (Kis ne kya kiya)',h:'Har ahem kaam ka record: kab, kya badla.',c:['Waqt','User','Kaam','Detail'],r:[['2026-11-07 09:15','Kashif','Stock adjust','Type-C Cable -12 (damaged)'],['2026-11-06 17:30','Saad','Payment receive','City Telecom Rs. 40,000']]}
+};
+const colsOf=id=>(P[id].c||P[id].f.concat(P[id].xc||[])).map(mk);
+const lookup=n=>LK[n]&&rowsOf(LK[n]).map(x=>x[0]);
+
+/* ---------- UI HELPERS ---------- */
+const closeM=()=>$('#md').className='md';
+function modal(t,body,ok,fn){const m=$('#md');m.innerHTML=`<form class="mb" id="mf"><h3>${t}</h3>${body}<div class="mbt"><button type="button" class="btn" id="mx">Band karein</button>${ok?`<button class="btn pri">${ok}</button>`:''}</div></form>`;m.className='md on';$('#mx').onclick=closeM;$('#mf').onsubmit=e=>{e.preventDefault();fn&&fn(new FormData(e.target))}}
+async function dlFile(name,data,type){if(DL){try{await DL.save({filename:name,data});return true}catch(e){}}return false}
+async function exportCSV(id){const csv=[colsOf(id).map(x=>x.n)].concat(rowsOf(id)).map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');if(!await dlFile(id+'.csv','\ufeff'+csv))modal('CSV: '+P[id].t,`<textarea readonly rows="9" class="ta">${csv}</textarea><p class="nt">Copy kar ke Excel mein paste karein.</p>`)}
+async function backup(){const o={};Object.keys(P).forEach(k=>{if(Array.isArray(P[k].r))o[k]=rowsOf(k)});if(await dlFile('hallroad-backup-'+T+'.json',JSON.stringify(o)))toast('Backup file download ho gayi')}
+function reset(){modal('Demo data wapis laein?','<p>Aap ka saara naya data mit jayega aur demo data wapis aa jayega.</p>','Haan, reset karein',()=>{Object.keys(P).forEach(k=>{if(Array.isArray(P[k].r)){delete C[k];db&&db.doc('tables/'+k).delete().catch(()=>{})}});closeM();toast('Demo data wapis aa gaya');sched()})}
+function payForm(id){const p=P[id],src=p.pay,open=rowsOf(src).filter(x=>x[3]>x[4]);if(!open.length)return toast('Koi baqaya nahi');
+ modal(p.a,`<label>Invoice<select name="i">${open.map(x=>`<option value="${x[0]}">${x[0]} - ${x[1]} (baqaya ${PKR(x[3]-x[4])})</option>`).join('')}</select></label><label>Raqam<input name="a" type="number" min="1" step="any" required></label>`,'Save karein',fd=>{const rows=rowsOf(src).map(x=>x.slice()),r=rows.find(x=>x[0]===fd.get('i')),a=+fd.get('a');if(a>r[3]-r[4])return toast('Raqam baqaya se zyada hai');r[4]+=a;r[5]=stt(r[3],r[4]);save(src,rows);log(p.a,r[0]+' '+PKR(a));closeM();toast('Save ho gaya \u2714')})}
+function show(id){
+ const p=P[id],cs=colsOf(id),edit=p.f&&!p.pay;let q='',sk=-1,sdir=1;
+ $('#pg').innerHTML=`<h2 class="pt">${p.t}</h2><div class="help"><b>Yeh page kis liye hai?</b> ${p.h}</div><section class="kpis" id="pst"></section><div class="bar"><input id="pq" class="sel grow" placeholder="Search karein..." aria-label="Search">${p.a?`<button class="btn pri" id="pa">\uff0b ${p.a}</button>`:''}${(p.ex||[]).map(e=>`<button class="btn" data-ex="${e[1]}">${e[0]}</button>`).join('')}<button class="btn" id="pe">Export CSV</button></div><div class="card"><div class="tw"><table id="ptb"></table></div></div>`;
+ const draw=()=>{const r=rowsOf(id);
+  $('#pst').innerHTML=(p.s?p.s(r):[]).map(s=>`<div class="kpi"><span>${s[0]}</span><b>${s[1]}</b></div>`).join('');
+  const v=r.map((x,i)=>[x,i]).filter(([x])=>x.join(' ').toLowerCase().includes(q));
+  if(sk>=0)v.sort((a,b)=>(a[0][sk]>b[0][sk]?1:a[0][sk]<b[0][sk]?-1:0)*sdir);
+  const rt=i=>cs[i].k&&cs[i].k!=='@'?'r':'';
+  $('#ptb').innerHTML='<tr>'+cs.map((c,i)=>`<th data-i="${i}" style="cursor:pointer" class="${rt(i)}">${c.n}${sk===i?(sdir>0?' \u25b2':' \u25bc'):''}</th>`).join('')+(edit?'<th></th>':'')+'</tr>'+(v.length?v.map(([x,ri])=>'<tr>'+x.map((y,i)=>`<td class="${rt(i)}" data-l="${cs[i].n}">${p.dl&&i===2?`<button class="btn" data-dl="${y}">Download CSV</button>`:cell(y,cs[i].k)}</td>`).join('')+(edit?`<td style="white-space:nowrap">${p.pr?`<button class="x" data-pr="${ri}" title="Invoice print karein" aria-label="Print">\u{1F5A8}</button> `:''}<button class="x" data-del="${ri}" aria-label="Delete">\u2715</button></td>`:'')+'</tr>').join(''):`<tr><td colspan="${cs.length+1}" class="nt">Koi record nahi mila. ${p.a?'Upar "'+p.a+'" se naya record daalein.':''}</td></tr>`)};
+ $('#pq').oninput=e=>{q=e.target.value.toLowerCase();draw()};
+ $('#ptb').onclick=e=>{const h=e.target.closest('th'),b=e.target.closest('[data-dl]'),d=e.target.closest('[data-del]'),pb=e.target.closest('[data-pr]');
+  if(pb)printInv(rowsOf(id)[+pb.dataset.pr]);else if(b)exportCSV(b.dataset.dl);else if(d){const rows=rowsOf(id).slice(),[g]=rows.splice(+d.dataset.del,1);save(id,rows);log('Record delete',p.t+': '+g[0]);toast('Record delete ho gaya')}else if(h&&h.dataset.i){const i=+h.dataset.i;sdir=sk===i?-sdir:1;sk=i;draw()}};
+ $('#pe').onclick=()=>exportCSV(id);
+ $$('[data-ex]').forEach(b=>b.onclick=()=>b.dataset.ex==='bk'?backup():reset());
+ addFn=p.pay?()=>payForm(id):p.f&&p.a?()=>{const F=p.f.map(mk),rows=rowsOf(id);
+  modal(p.a,F.map((c,i)=>{const o=c.o&&c.o[0]==='*'?lookup(c.n):c.o;let val='';if(c.n==='Invoice'||c.n==='Return No'){const nums=rows.map(x=>+String(x[0]).replace(/\D/g,'')||0);val=String(rows[0]?rows[0][0]:'X-0').replace(/\d+/g,'')+(Math.max(0,...nums)+1)}
+   return`<label>${c.n}${o?`<select name="${i}">${o.map(z=>`<option>${z}</option>`).join('')}</select>`:`<input name="${i}" required value="${c.k==='@'?T:val}" ${c.k==='$'||c.k==='#'?'type="number" min="0" step="any"':c.k==='@'?'type="date"':'type="text"'}>`}</label>`}).join(''),'Save karein',fd=>{
+   const v=F.map((c,i)=>c.k==='$'||c.k==='#'?+fd.get(i):fd.get(i)),er=p.ck&&p.ck(v);if(er)return toast(er);
+   const row=p.row?p.row(v):v.concat(p.x?p.x(v):[]);save(id,[row,...rowsOf(id)]);log(p.a,String(v[0]));p.after&&p.after(v);closeM();toast('Save ho gaya \u2714')})}:null;
+ if($('#pa'))$('#pa').onclick=addFn;
+ curDraw=draw;draw()}
+
+/* ---------- DASHBOARD ---------- */
+const HINT={rev:'Kitni sale hui',gp:'Sale minus maal ki lagat',np:'Sab kharche ke baad',iv:'Godown mein maal ki lagat',un:'Godown mein kul pieces',ar:'Shopkeepers se lene hain',ap:'Suppliers ko dene hain',ox:'Kharche + kiraya + salary'};
+let anim=true,ch={};
+function num(el,v,f){if(!anim||matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=f(v);return}const t0=performance.now();(function s(t){const k=Math.min(1,(t-t0)/900);el.textContent=f(v*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(s)})(t0)}
+const css=v=>getComputedStyle(root).getPropertyValue(v).trim();
+function chart(id,cfg){ch[id]&&ch[id].destroy();Chart.defaults.font.family="'DM Sans',sans-serif";Chart.defaults.color=css('--mu');ch[id]=new Chart($(id),cfg)}
+function tbl(el,h,rows,right){$(el).innerHTML='<tr>'+h.map((x,i)=>`<th class="${right.includes(i)?'r':''}">${x}</th>`).join('')+'</tr>'+(rows.length?rows.map(r=>'<tr>'+r.map((c,i)=>`<td class="${right.includes(i)?'r':''}">${c}</td>`).join('')+'</tr>').join(''):`<tr><td colspan="${h.length}" class="nt">Kuch nahi, sab theek hai.</td></tr>`)}
+function render(){
+ const R=+$('#range').value,c=fin(R),pv=fin(R,1),pr=rowsOf('products-categories'),iv=pr.reduce((a,x)=>a+x[2]*x[4],0),un=sc(pr,4),rc=recv(),pb=payb(),AR=sc(rc,2),AP=sc(pb,2),cash=cashBal();
+ const d=(a,b)=>b?(a-b)/Math.abs(b)*100:null,dl=v=>v==null?'':`<i class="${v>=0?'up':'dn'}">${v>=0?'\u25b2':'\u25bc'} ${Math.abs(v).toFixed(0)}% pichlay se</i>`;
+ num($('#hb'),c.np,PKR);
+ $('#hs').innerHTML=`Pichlay ${R===30?'30 din':R/30+' mahine'} mein <b>${PKR(c.rev)}</b> ki sale hui. Maal ki lagat aur kharche (<b>${PKR(c.ox)}</b>) nikal kar ${c.np>=0?'itna munafa bacha':'nuqsan hua'}.`;
+ $('#chips').innerHTML=`<span>Cash + Bank: ${PKR(cash)}</span><span>Lene hain: ${PKR(AR)}</span><span>Dene hain: ${PKR(AP)}</span>`;
+ $('#qa').innerHTML=['Add Product','New Purchase','New Sale','Receive Payment','Add Expense','Stock Adjustment'].map(t=>`<button data-q="${t}">${t}</button>`).join('');
+ const K=[['Total sale',c.rev,PKR,'rev',d(c.rev,pv.rev)],['Gross profit',c.gp,PKR,'gp',null],['Net profit',c.np,PKR,'np',d(c.np,pv.np)],['Inventory value',iv,PKR,'iv',null],['Stock units',un,v=>Math.round(v).toLocaleString('en-PK'),'un',null],['Receivables',AR,PKR,'ar',null],['Payables',AP,PKR,'ap',null],['Kharche',c.ox,PKR,'ox',d(c.ox,pv.ox)]];
+ $('#kpis').innerHTML=K.map(k=>`<div class="kpi"><span>${k[0]}</span><b></b><small>${HINT[k[3]]}</small>${dl(k[4])}</div>`).join('');
+ $$('#kpis b').forEach((b,i)=>num(b,K[i][1],K[i][2]));
+ const M=KEYS.map(mon),lab=KEYS.map(k=>new Date(k+'-15').toLocaleString('en',{month:'short'}));
+ chart('#c1',{type:'bar',data:{labels:lab,datasets:[{type:'line',label:'Net profit',data:M.map(x=>x[1]),borderColor:'#22b8ff',backgroundColor:'#22b8ff',tension:.4,pointRadius:3},{label:'Sale',data:M.map(x=>x[0]),backgroundColor:'#7c5cff',borderRadius:6,maxBarThickness:30}]},options:{maintainAspectRatio:false,scales:{y:{grid:{color:css('--grid')},ticks:{callback:v=>sh(v)}},x:{grid:{display:false}}},plugins:{legend:{position:'bottom',labels:{boxWidth:10}}}}});
+ const E={};c.ex.forEach(x=>E[x[1]]=(E[x[1]]||0)+x[2]);E.Kiraya=c.r;E.Salary=c.p;
+ $('#ebl').textContent=PKR(c.ox);
+ chart('#c2',{type:'doughnut',data:{labels:Object.keys(E),datasets:[{data:Object.values(E),backgroundColor:['#7c5cff','#22b8ff','#17b26a','#f5a524','#f04452','#8a8fb0','#c084fc'],borderWidth:0}]},options:{maintainAspectRatio:false,cutout:'64%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}}}}});
+ const W=Array.from({length:10},(_,i)=>{const w=9-i;return rowsOf('wholesale-sales').filter(x=>{const a=(Date.now()-new Date(x[2]))/864e5;return a>=w*7&&a<(w+1)*7}).reduce((s,x)=>s+x[3],0)});
+ chart('#c3',{type:'line',data:{labels:W.map((_,i)=>i===9?'Is hafta':(9-i)+' hafte pehle'),datasets:[{data:W,borderColor:'#7c5cff',backgroundColor:'rgba(124,92,255,.16)',fill:true,tension:.4,pointRadius:3}]},options:{maintainAspectRatio:false,scales:{y:{grid:{color:css('--grid')},ticks:{callback:v=>sh(v)}},x:{grid:{display:false},ticks:{maxTicksLimit:5}}},plugins:{legend:{display:false}}}});
+ const CT={};pr.forEach(x=>CT[x[1]]=(CT[x[1]]||0)+x[2]*x[4]);
+ chart('#c4',{type:'bar',data:{labels:Object.keys(CT),datasets:[{data:Object.values(CT),backgroundColor:'#22b8ff',borderRadius:6}]},options:{indexAxis:'y',maintainAspectRatio:false,scales:{x:{grid:{color:css('--grid')},ticks:{callback:v=>sh(v)}},y:{grid:{display:false}}},plugins:{legend:{display:false}}}});
+ const bal=x=>x[3]>x[4]?`<span class="tag t-w">${PKR(x[3]-x[4])}</span>`:'<span class="tag t-ok">Paid</span>';
+ tbl('#t1',['Invoice','Shopkeeper','Total','Baqaya'],rowsOf('wholesale-sales').slice(0,5).map(x=>[x[0],x[1],PKR(x[3]),bal(x)]),[2,3]);
+ tbl('#t2',['Product','Stock','Status'],pr.filter(x=>x[4]<=LOWN).sort((a,b)=>a[4]-b[4]).map(x=>[x[0],x[4],`<span class="tag ${x[4]<=10?'t-b':'t-w'}">${x[4]<=10?'Critical':'Low'}</span>`]),[1]);
+ tbl('#t3',['Shopkeeper','Invoice','Baqaya'],rc.sort((a,b)=>b[2]-a[2]).slice(0,5).map(x=>[x[0],x[1],`<span class="tag ${x[4]==='Overdue'?'t-b':'t-w'}">${PKR(x[2])}</span>`]),[2]);
+ tbl('#t4',['PO','Supplier','Total','Baqaya'],rowsOf('purchases').slice(0,5).map(x=>[x[0],x[1],PKR(x[3]),bal(x)]),[2,3]);
+ anim=false}
+
+/* ---------- LOGO, INVOICE, BELL, COMMAND PALETTE ---------- */
+const LOGO=`<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="lgx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b6cff"/><stop offset="1" stop-color="#1fb5ff"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#lgx)"/><rect x=".5" y=".5" width="39" height="39" rx="10.5" fill="none" stroke="#fff" stroke-opacity=".28"/><path d="M12.5 9.5v21M27.5 9.5v21" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M12.5 25l6-5.2 4 3 5-7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27.5" cy="15.8" r="2.4" fill="#fff"/></svg>`;
+$('.mlogo').innerHTML=LOGO;
+const SHEET=[['Add Product','📦','Maal add karein'],['New Purchase','🚚','Maal khareedein'],['New Sale','🛒','Sale karein'],['Receive Payment','💰','Paise wasool karein'],['Add Expense','🧾','Kharcha likhein'],['Stock Adjustment','🔧','Stock theek karein']];
+function openSheet(){app.classList.remove('open');modal('Kya karna hai?',`<div class="sg">${SHEET.map(x=>`<button type="button" class="sgb" data-q="${x[0]}"><i>${x[1]}</i><span>${x[2]}</span></button>`).join('')}</div>`,null);$('#mf').onclick=e=>{const b=e.target.closest('[data-q]');if(b){closeM();quick(QA[b.dataset.q])}}}
+function updBell(){try{const n=rowsOf('products-categories').filter(x=>x[4]<=LOWN).length+recv().filter(x=>x[4]==='Overdue').length+payb().filter(x=>x[4]==='Overdue').length+rowsOf('rent').filter(x=>x[4]==='Due').length,b=$('#bcnt');b.textContent=n>99?'99+':n;b.hidden=!n}catch(e){}}
+function printInv(r){const bq=Math.max(0,r[3]-r[4]);modal('Invoice '+r[0],`<div id="inv"><div style="display:flex;gap:10px;align-items:center;margin-bottom:14px"><span style="width:38px;height:38px;display:block">${LOGO}</span><div><b style="font:700 16px Outfit">Al-Noor Traders</b><div class="nt">Hall Road, Lahore</div></div><div style="margin-left:auto;text-align:right"><b>${r[0]}</b><div class="nt">${r[2]}</div></div></div><p>Bill to: <b>${r[1]}</b></p><table><tr><td>Total bill</td><td class="r">${PKR(r[3])}</td></tr><tr><td>Ada shuda</td><td class="r">${PKR(r[4])}</td></tr><tr><th>Baqaya</th><th class="r">${PKR(bq)}</th></tr></table><p class="nt">Shukriya! Hall Road ERP</p></div>`,'Print / PDF',()=>print())}
+const cp=$('#cp'),cpi=$('#cpi'),cpl=$('#cpl');let cpx=0,cpv=[];
+const cpItems=()=>[{t:'Dashboard',s:'Page',go:()=>location.hash='dashboard'},...Object.keys(P).map(k=>({t:P[k].t.replace(/ \(.*\)/,''),s:'Page',go:()=>location.hash=k})),...Object.entries(QA).map(([t,id])=>({t:'+ '+t,s:'Naya kaam',go:()=>quick(id)})),{t:'Theme badlein (dark/light)',s:'Action',go:()=>$('#theme').click()},{t:'Backup lein',s:'Action',go:backup}];
+function cpDraw(){const w=cpi.value.toLowerCase().split(/\s+/).filter(Boolean);cpv=cpItems().filter(i=>w.every(x=>(i.t+' '+i.s).toLowerCase().includes(x))).slice(0,9);cpx=0;cpl.innerHTML=cpv.length?cpv.map((i,n)=>`<button type="button" data-i="${n}" class="${n?'':'on'}"><span>${i.t}</span><small>${i.s}</small></button>`).join(''):'<p class="nt" style="padding:12px">Kuch nahi mila.</p>'}
+function openCP(pre){cp.classList.add('on');cpi.value=pre||'';cpDraw();cpi.focus()}
+const closeCP=()=>cp.classList.remove('on');
+const cpGo=n=>{const i=cpv[n];if(i){closeCP();i.go()}};
+cpi.oninput=cpDraw;
+cpi.onkeydown=e=>{if(e.key==='Escape')return closeCP();if(e.key==='Enter')return cpGo(cpx);const d=e.key==='ArrowDown'?1:e.key==='ArrowUp'?-1:0;if(!d||!cpv.length)return;e.preventDefault();cpx=(cpx+d+cpv.length)%cpv.length;[...cpl.children].forEach((b,n)=>b.classList.toggle('on',n===cpx))};
+cpl.onclick=e=>{const b=e.target.closest('[data-i]');if(b)cpGo(+b.dataset.i)};
+cp.onclick=e=>{if(e.target===cp)closeCP()};
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCP()}else if(e.key==='Escape')closeCP()});
+
+/* ---------- ROUTER & EVENTS ---------- */
+function route(o){const id=typeof o==='string'?o:(location.hash||'#dashboard').slice(1);route.cur=id;
+ $$('.nav a,.tabs a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));closeM();scrollTo(0,0);
+ if(P[id]){$('#dash').style.display='none';show(id);document.title=P[id].t+' \u2013 Hall Road ERP'}
+ else{$('#pg').innerHTML='';$('#dash').style.display='';addFn=null;curDraw=render;document.title='Hall Road ERP';render()}
+ updBell();if(pendAdd){pendAdd=false;addFn&&addFn()}}
+const QA={'Add Product':'products-categories','New Purchase':'purchases','New Sale':'wholesale-sales','Receive Payment':'receivables','Add Expense':'expenses','Stock Adjustment':'inventory'};
+const quick=id=>{pendAdd=true;location.hash==='#'+id?route():location.hash=id};
+$('#qa').onclick=e=>{const b=e.target.closest('button');if(b)quick(QA[b.dataset.q])};
+$('#fab').onclick=()=>quick('wholesale-sales');
+$('#bell').onclick=()=>{location.hash='notifications'};
+$('#gs').onfocus=$('#gs').onclick=()=>{$('#gs').blur();openCP()};$('#sbtn2').onclick=()=>{app.classList.remove('open');openCP()};$('#more').onclick=()=>app.classList.toggle('open');$('#plus').onclick=()=>openSheet();$('#nbtn').onclick=()=>openCP('+ ');
+$('#range').onchange=()=>{anim=false;render()};
+addEventListener('hashchange',route);
+document.addEventListener('click',e=>{const a=e.target.closest('.nav a,.tabs a');if(!a)return;e.preventDefault();const id=a.getAttribute('href').slice(1);try{location.hash=id}catch(_){}setTimeout(()=>{if(route.cur!==id)route(id)},60)});
+route();initDb();
+</script>
+</body>
+</html>
